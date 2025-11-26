@@ -114,7 +114,7 @@ docker run -it --rm --gpus=all dps-docker
 python3 sample_condition.py \
 --model_config=configs/model_config.yaml \
 --diffusion_config=configs/diffusion_config.yaml \
---task_config={TASK-CONFIG};
+--task_config=configs/gaussian_deblur_config.yaml;
 ```
 
 
