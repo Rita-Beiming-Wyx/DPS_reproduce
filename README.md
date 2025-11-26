@@ -123,7 +123,7 @@ python3 sample_condition.py \
 python3 sample_condition.py \
 --model_config=configs/imagenet_model_config.yaml \
 --diffusion_config=configs/diffusion_config.yaml \
---task_config=gaussian_deblur_config.yaml;
+--task_config=configs/gaussian_deblur_config.yaml;
 ```
 
 <br />
