@@ -47,6 +47,14 @@ mv {DOWNLOAD_DIR}/ffqh_10m.pt ./models/
 
 :speaker: Checkpoint for imagenet is uploaded.
 
+```
+pip install gdown
+mkdir -p models
+gdown --folder https://drive.google.com/drive/folders/1jElnRoFv7b31fG0v6pTSQkelbSX3xGZh -O models
+ls models
+```
+
+
 <br />
 
 
