@@ -1,3 +1,12 @@
+Evaluate Results with common metrics
+```
+python RunMetrics/compute_metric.py \
+  --gt_folder results/gaussian_blur/input \
+  --pred_folder results/gaussian_blur/recon \
+  --output results/gaussian_blur/metrics_results.txt
+```
+
+
 # Diffusion Posterior Sampling for General Noisy Inverse Problems (ICLR 2023 spotlight)
 
 ![result-gif1](./figures/motion_blur.gif)
