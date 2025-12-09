@@ -2,7 +2,7 @@ Evaluate Results with common metrics
 !!!! results里的input不是ground truth！
 ```
 python RunMetrics/compute_metric.py \
-  --gt_folder results/gaussian_blur/lable \
+  --gt_folder results/gaussian_blur/label \
   --pred_folder results/gaussian_blur/recon \
   --output results/gaussian_blur/metrics_results.txt
 ```
