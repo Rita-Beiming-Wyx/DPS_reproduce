@@ -6,6 +6,7 @@ conditioning:
 data:
   name: ffhq
   root: ./data/samples/
+  image_size: 256
 
 measurement:
   operator:
