@@ -34,6 +34,16 @@ import torchvision.transforms as transforms
 from image_data import ImageDataset
 from evaluate_fid import calculate_fid
 
+# resize logic!!! 
+def build_preprocess(image_size):
+    return transforms.Compose([
+        transforms.ToTensor(),                   # [0,1]
+        transforms.Resize(image_size),           # 等比例缩放（保持长宽比）
+        transforms.CenterCrop(image_size),       # 居中裁剪成正方形
+        transforms.Normalize((0.5, 0.5, 0.5),
+                             (0.5, 0.5, 0.5))    # [0,1] → [-1,1]
+    ])
+
 def load_images_from_folder(folder_path, resolution=256):
     """
     Load images from a folder and convert to tensors in range [-1, 1]
@@ -48,12 +58,20 @@ def load_images_from_folder(folder_path, resolution=256):
     folder = Path(folder_path)
     image_files = sorted(folder.glob('*.png')) + sorted(folder.glob('*.jpg'))
     
+    # new resize preprocess!!
+    preprocess = build_preprocess(resolution)
+
+    
     images = []
     for img_path in tqdm(image_files, desc=f"Loading images from {folder.name}"):
         img = Image.open(img_path).convert('RGB')
-        img = img.resize((resolution, resolution), Image.BILINEAR)
-        img = transforms.ToTensor()(img)
-        img = img * 2 - 1
+        # img = img.resize((resolution, resolution), Image.BILINEAR)
+        # img = transforms.ToTensor()(img)
+        # img = img * 2 - 1
+
+        # 改成新的resize
+        img = preprocess(img)   # 这里就包含了 Resize + CenterCrop + Normalize
+
         images.append(img)
     
     if len(images) == 0:
