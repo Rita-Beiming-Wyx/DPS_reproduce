@@ -36,7 +36,7 @@ def get_dataloader(dataset: VisionDataset,
 
 @register_dataset(name='ffhq')
 class FFHQDataset(VisionDataset):
-    def __init__(self, root: str, transforms: Optional[Callable]=None):
+    def __init__(self, root: str, transforms: Optional[Callable]=None, **kwargs):
         super().__init__(root, transforms)
 
         self.fpaths = sorted(glob(root + '/**/*.png', recursive=True))
