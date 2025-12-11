@@ -62,6 +62,8 @@ pip install gdown
 mkdir -p models
 gdown --folder https://drive.google.com/drive/folders/1jElnRoFv7b31fG0v6pTSQkelbSX3xGZh -O models
 ls models
+
+gdown --fuzzy https://drive.google.com/file/d/11qwFGPdmrTH8ClE9FJ4GVJfdVUP8-EmK/view?usp=drive_link -O models/
 ```
 
 
