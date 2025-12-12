@@ -5,7 +5,8 @@ conditioning:
 
 data:
   name: ffhq
-  root: ./data/samples/
+  root: ./data/DIV2K_HR_test_30/ #换data!!!
+  image_size: 256
 
 measurement:
   operator:

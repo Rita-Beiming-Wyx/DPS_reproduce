@@ -29,7 +29,8 @@ class ConditioningMethod(ABC):
         if self.noiser.__name__ == 'gaussian':
             difference = measurement - self.operator.forward(x_0_hat, **kwargs)
             norm = torch.linalg.norm(difference)
-            norm_grad = torch.autograd.grad(outputs=norm, inputs=x_prev)[0]
+            # norm_grad = torch.autograd.grad(outputs=norm, inputs=x_prev)[0]
+            norm_grad = torch.autograd.grad(outputs=norm, inputs=x_0_hat)[0]
         
         elif self.noiser.__name__ == 'poisson':
             Ax = self.operator.forward(x_0_hat, **kwargs)
@@ -82,6 +83,13 @@ class PosteriorSampling(ConditioningMethod):
         self.scale = kwargs.get('scale', 1.0)
 
     def conditioning(self, x_prev, x_t, x_0_hat, measurement, **kwargs):
+
+        # print("x_prev.requires_grad:", x_prev.requires_grad)
+        # print("x_t.requires_grad:", x_t.requires_grad)
+        # print("x_0_hat.requires_grad:", x_0_hat.requires_grad, "grad_fn:", x_0_hat.grad_fn)
+        # print("max|x_prev-x_t|:", (x_prev - x_t).abs().max().item())
+        # print("same_storage:", x_prev.data_ptr() == x_t.data_ptr())
+
         norm_grad, norm = self.grad_and_value(x_prev=x_prev, x_0_hat=x_0_hat, measurement=measurement, **kwargs)
         x_t -= norm_grad * self.scale
         return x_t, norm

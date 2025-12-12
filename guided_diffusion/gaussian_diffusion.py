@@ -194,7 +194,8 @@ class GaussianDiffusion:
             img, distance = measurement_cond_fn(x_t=out['sample'],
                                       measurement=measurement,
                                       noisy_measurement=noisy_measurement,
-                                      x_prev=img,
+                                      #x_prev=img,
+                                      x_prev=out['sample'],  # ✅ 关键：让 x_prev ≡ x_t
                                       x_0_hat=out['pred_xstart'])
             img = img.detach_()
            

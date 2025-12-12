@@ -30,7 +30,7 @@ def main():
     parser.add_argument('--gpu', type=int, default=0)
     parser.add_argument('--save_dir', type=str, default='./results')
     args = parser.parse_args()
-   
+    
     # logger
     logger = get_logger()
     
@@ -76,8 +76,27 @@ def main():
 
     # Prepare dataloader
     data_config = task_config['data']
-    transform = transforms.Compose([transforms.ToTensor(),
-                                    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    # transform = transforms.Compose([transforms.ToTensor(),
+    #                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    # correct resize
+    image_size = data_config.get('image_size', 256)
+
+    # # -----保留------
+    # transform = transforms.Compose([transforms.ToTensor(),
+    #                                 transforms.Resize(image_size),
+    #                                 transforms.CenterCrop(image_size),
+    #                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    # # -----保留------
+
+    #========尝试=========
+    transform = transforms.Compose([
+        transforms.Resize(image_size),        # ⚠️ 在 ToTensor 之前
+        # transforms.CenterCrop(image_size),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5,)*3, (0.5,)*3)
+        ])
+    #========尝试=========
+
     dataset = get_dataset(**data_config, transforms=transform)
     loader = get_dataloader(dataset, batch_size=1, num_workers=0, train=False)
 
